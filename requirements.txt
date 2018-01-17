@@ -1,0 +1,8 @@
+numpy>=1.10.1
+scipy>=1.0
+pyyaml
+# You have to install the same GDAL python package version of gdal library
+# e.g.: if you installed gdal-2.1.0 you have to install GDAL in the following way:
+# pip install GDAL==2.1.0
+GDAL
+netCDF4==1.3.1
