@@ -1,3 +1,7 @@
+"""
+Module containing the code for the NetCDFWriter class
+"""
+
 import time
 
 import numpy as np
@@ -5,6 +9,10 @@ from netCDF4 import Dataset
 
 
 class NetCDFWriter:
+    """
+    This class manages all aspects concerning definition and writing of a NetCDF4 file.
+    """
+
     FORMATS = {'classic': 'NETCDF4_CLASSIC', 'normal': 'NETCDF4'}
     DATUM = {
         'ETRS89': 'PROJCS["JRC_LAEA_ETRS-DEF",GEOGCS["GCS_ETRS_1989",DATUM["D_ETRS_1989",SPHEROID["GRS_1980",6378137.0,298.257222101]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Lambert_Azimuthal_Equal_Area"],PARAMETER["False_Easting",4321000.0],PARAMETER["False_Northing",3210000.0],PARAMETER["Central_Meridian",10.0],PARAMETER["Latitude_Of_Origin",52.0],UNIT["Meter",1.0]]',
@@ -55,9 +63,10 @@ class NetCDFWriter:
             vardimensions = ('time', 'yc', 'xc')
 
         # data variable
-        complevel = self.nc_metadata.get('compression')
+        complevel = self.nc_metadata['variable'].get('compression')
         additional_args = {'zlib': bool(complevel)}
         if complevel:
+            print('Applying compression level', str(complevel))
             additional_args['complevel'] = complevel
         if np.issubdtype(self.pcr_metadata['dtype'], np.floating):
             significant_digits = self.nc_metadata.get('least_significant_digit', 2)
@@ -76,7 +85,7 @@ class NetCDFWriter:
 
     def add_to_stack(self, pcr_map, time_step):
         """
-
+        Add a PCRaster map to the NetCDF4 file.
         :param time_step: int, it's basically the extension of pcraster map file
             For single files (ie not time series) time_step is None
         :param pcr_map: PCRasterMap object
@@ -103,6 +112,9 @@ class NetCDFWriter:
         self.temp_time.append(time_step)
 
     def finalize(self):
+        """
+        Write last maps to the stack and close the NetCDF4 dataset.
+        """
         print('Writing...', self.name)
         dtype = self.temp_values[0].dtype
         if self.is_mapstack:
@@ -114,14 +126,17 @@ class NetCDFWriter:
         self.nf.close()
 
     def define_wgs84(self):
+        """
+        Define WGS84 reference system
+        """
         # coordinates variables
         print('Defining WGS84 coordinates variables')
-        longitude = self.nf.createVariable('lon', 'f', ('xc',))
+        longitude = self.nf.createVariable('lon', 'f4', ('xc',))
         longitude.standard_name = 'longitude'
         longitude.long_name = 'longitude coordinate'
         longitude.units = 'degrees_east'
 
-        latitude = self.nf.createVariable('lat', 'f', ('yc',))
+        latitude = self.nf.createVariable('lat', 'f4', ('yc',))
         latitude.standard_name = 'latitude'
         latitude.long_name = 'latitude coordinate'
         latitude.units = 'degrees_north'
@@ -133,6 +148,9 @@ class NetCDFWriter:
         values_var.esri_pe_string = self.DATUM.get(self.nc_metadata['geographical'].get('datum', 'WGS84').upper(), '')
 
     def define_etrs89(self):
+        """
+        Define a ETRS89 reference system
+        """
         print('Defining ETRS89 coordinates variables')
         # Variables
         x = self.nf.createVariable('x', 'f8', ('xc',))
@@ -164,6 +182,9 @@ class NetCDFWriter:
         values_var.esri_pe_string = self.DATUM.get(self.nc_metadata['geographical'].get('datum', 'WGS84').upper(), '')
 
     def define_gisco(self):
+        """
+        It defines a custom LAEA ETRS89 GISCO reference system
+        """
         print('Defining GISCO coordinates variables')
         # Variables
         x = self.nf.createVariable('x', 'f8', ('xc',))

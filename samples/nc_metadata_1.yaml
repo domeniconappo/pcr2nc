@@ -11,4 +11,4 @@ geographical:
   datum: WGS84
 time:
   calendar: proleptic_gregorian
-  units: days since 1996
+  units: days since 1996-01-01

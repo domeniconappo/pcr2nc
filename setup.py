@@ -2,18 +2,18 @@
 from setuptools import setup, find_packages
 
 
-packages_deps = ['numpy', 'scipy', 'pyyaml']
+packages_deps = ['numpy', 'pyyaml', 'netCDF4']
 
-setup_args = dict(name='pyg2p',
-                  version='2.1',
-                  description="Convert a set of PCRaster files to a netCDF4 mapstack",
-                  license="Open Source",
+setup_args = dict(name='pcr2nc',
+                  version='0.1',
+                  description='Convert PCRaster files to netCDF4',
+                  license="mit",
                   install_requires=packages_deps,
                   author="Domenico Nappo",
                   author_email="domenico.nappo@gmail.com",
                   packages=find_packages(),
                   keywords="netCDF4 PCRaster",
-                  entry_points={'console_scripts': ['pcr2nc = pcr2nc_script:main_script']},
+                  entry_points={'console_scripts': ['pcr2nc = scripts.pcr2nc_script:main_script']},
                   zip_safe=True)
 
 
