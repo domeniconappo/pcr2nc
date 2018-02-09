@@ -131,12 +131,12 @@ class NetCDFWriter:
         """
         # coordinates variables
         print('Defining WGS84 coordinates variables')
-        longitude = self.nf.createVariable('lon', 'f4', ('xc',))
+        longitude = self.nf.createVariable('lon', 'f8', ('xc',))
         longitude.standard_name = 'longitude'
         longitude.long_name = 'longitude coordinate'
         longitude.units = 'degrees_east'
 
-        latitude = self.nf.createVariable('lat', 'f4', ('yc',))
+        latitude = self.nf.createVariable('lat', 'f8', ('yc',))
         latitude.standard_name = 'latitude'
         latitude.long_name = 'latitude coordinate'
         latitude.units = 'degrees_north'
