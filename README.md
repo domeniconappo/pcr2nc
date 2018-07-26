@@ -43,7 +43,7 @@ $ cd pcr2nc
 
 Install requirements
 ```bash
-$ pip install requirements.txt
+$ pip install -r requirements.txt
 ```
 
 If GDAL library fails to install, ensure to install the same package version of the
@@ -52,7 +52,7 @@ Example: you have installed gdal 2.1, then:
 
 ```bash
 $ pip install GDAL==2.1
-$ pip install requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ### Install via pip tool

@@ -69,8 +69,7 @@ class NetCDFWriter:
             print('Applying compression level', str(complevel))
             additional_args['complevel'] = complevel
         if np.issubdtype(self.pcr_metadata['dtype'], np.floating):
-            significant_digits = self.nc_metadata.get('least_significant_digit', 2)
-            additional_args['least_significant_digit'] = significant_digits
+            additional_args['least_significant_digit'] = self.nc_metadata.get('least_significant_digit', None)
 
         values_nc = self.nf.createVariable(self.nc_metadata['variable'].get('shortname', ''),
                                            self.pcr_metadata['dtype'],
