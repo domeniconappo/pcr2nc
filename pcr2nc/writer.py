@@ -60,7 +60,7 @@ class NetCDFWriter:
             time_nc.standard_name = 'time'
             time_nc.units = self.nc_metadata['time'].get('units', '')
             time_nc.calendar = self.nc_metadata['time'].get('calendar', '')
-            vardimensions = ('time', 'yc', 'xc')
+            vardimensions = ('yc', 'xc', 'time', )
 
         # data variable
         complevel = self.nc_metadata['variable'].get('compression')
@@ -73,8 +73,7 @@ class NetCDFWriter:
 
         values_nc = self.nf.createVariable(self.nc_metadata['variable'].get('shortname', ''),
                                            self.pcr_metadata['dtype'],
-                                           vardimensions,
-                                           **additional_args)
+                                           vardimensions, **additional_args)
         getattr(self, post_datum_function)(values_nc)
 
         values_nc.standard_name = self.nc_metadata['variable'].get('shortname', '')

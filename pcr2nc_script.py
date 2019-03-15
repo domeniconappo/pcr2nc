@@ -8,7 +8,7 @@ import json
 
 import yaml
 
-from pcr2nc.converter import Converter
+from pcr2nc.converter import convert
 
 
 class ParserHelpOnError(argparse.ArgumentParser):
@@ -53,8 +53,7 @@ def main(args):
     configuration = {'input_set': parsed_args.input,
                      'output_filename': parsed_args.output_file,
                      'metadata': parse_metadata(parsed_args.metadata)}
-    converter = Converter(configuration)
-    converter.convert()
+    convert(configuration)
 
 
 if __name__ == '__main__':
