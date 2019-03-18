@@ -8,7 +8,7 @@ from pcr2nc.writer import NetCDFWriter
 def convert(config):
     input_set = config['input_set']
     reader = PCRasterReader(input_set)
-    pcr_metadata = self.reader.get_metadata_from_set()
+    pcr_metadata = reader.get_metadata_from_set()
     writer = NetCDFWriter(config.get('output_filename') or config.get('variable'),
                           config['metadata'],
                           pcr_metadata,

@@ -13,7 +13,7 @@ setup_args = dict(name='pcr2nc',
                   author_email="domenico.nappo@gmail.com",
                   packages=find_packages(),
                   keywords="netCDF4 PCRaster",
-                  entry_points={'console_scripts': ['pcr2nc = scripts.pcr2nc_script:main_script']},
+                  entry_points={'console_scripts': ['pcr2nc = pcr2nc_script:main_script']},
                   zip_safe=True)
 
 

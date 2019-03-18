@@ -7,6 +7,10 @@ import argparse
 import json
 
 import yaml
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
 
 from pcr2nc.converter import convert
 
@@ -33,7 +37,7 @@ class ParserHelpOnError(argparse.ArgumentParser):
 def parse_metadata(metadata_file):
     if metadata_file.endswith('.yaml') or metadata_file.endswith('.yml'):
         with open(metadata_file) as f:
-            metadata = yaml.load(f)
+            metadata = yaml.load(f, Loader=Loader)
     else:
         # suppose json format
         with open(metadata_file) as f:
