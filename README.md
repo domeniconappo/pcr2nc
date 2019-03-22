@@ -1,5 +1,7 @@
 # pcr2nc
 
+__Note__: This repository is no longer maintained and was moved to the official European Commission - JRC github account https://github.com/ec-jrc/lisflood-utilities
+
 __pcr2nc__ is a tool to convert PCRaster maps to netCDF4 files.
 It's developed at JRC E1 directorate, as a Floods group initiative.
 
